@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title data-i18n="title">SERVER_NAME - Minecraft 服务器</title>
+  <style>
+    :root{
+      --accent:#2ecc71;
+      --bg:#0f1720;
+      --card:#0b1320;
+      --text:#e6eef6;
+      --muted:#9fb0c8;
+      font-family:Inter, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#071028 0%, #0b1220 100%);color:var(--text);min-height:100vh}
+    .container{max-width:960px;margin:32px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:88px;height:88px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#19a974);display:flex;align-items:center;justify-content:center;font-weight:700;color:#022;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+    h1{margin:0;font-size:1.6rem}
+    .tag{color:var(--muted);margin-top:6px;font-size:0.95rem}
+    .hero{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:18px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,.6)}
+    .info{min-width:220px}
+    .ip{font-weight:700;font-size:1.2rem;letter-spacing:0.6px}
+    .btn{background:var(--accent);color:#022;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+    .muted{color:var(--muted);font-size:0.95rem}
+    main{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:20px}
+    .section{background:var(--card);padding:16px;border-radius:12px}
+    .features{display:flex;flex-wrap:wrap;gap:10px}
+    .feature{flex:1 1 45%;background:linear-gradient(180deg,#07182600,#0000);padding:10px;border-radius:8px}
+    ul.rules{padding-left:18px;margin:8px 0;color:var(--muted)}
+    .staff{display:flex;flex-direction:column;gap:8px}
+    .staff .row{display:flex;align-items:center;gap:10px}
+    .avatar{width:40px;height:40px;border-radius:8px;background:#0b2030;display:inline-flex;align-items:center;justify-content:center;color:var(--muted)}
+    footer{margin-top:20px;text-align:center;color:var(--muted);font-size:0.9rem}
+    .lang-select{margin-left:8px;padding:6px;border-radius:8px;background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.04)}
+    @media (max-width:880px){
+      main{grid-template-columns:1fr}
+      .hero{flex-direction:column;align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">MC</div>
+      <div style="flex:1">
+        <h1 data-i18n="server_name">SERVER_NAME</h1>
+        <div class="tag" data-i18n="tag">欢迎来到 SERVER_NAME —— 一个友好、有趣的 Minecraft 生存/创意 服务器</div>
+      </div>
+      <div>
+        <label for="lang" class="muted" data-i18n="lang_label">语言</label>
+        <select id="lang" class="lang-select" aria-label="Language selector">
+          <option value="zh-CN">中文 (简体)</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="card info">
+        <div class="muted" data-i18n="server_address">服务器地址</div>
+        <div class="ip" id="server-ip">SERVER_IP</div>
+        <div style="margin-top:8px" class="muted"> <span data-i18n="version_label">游戏版本：</span><strong id="server-version">VERSION</strong></div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn" id="copy-btn">复制地址</button>
+          <button class="btn" id="discord-btn">加入 Discord</button>
+        </div>
+        <div style="margin-top:10px" class="muted"> <span data-i18n="online_label">在线人数：</span><span id="players">—</span></div>
+      </div>
+
+      <div class="card" style="min-width:240px">
+        <div class="muted" data-i18n="quick_info">快速信息</div>
+        <ul style="margin:8px 0 0 18px;color:var(--text)">
+          <li data-i18n-html="feature_modes">游戏模式：Survival / Creative / Skyblock（按需修改）</li>
+          <li data-i18n-html="feature_plugins">插件/模组：EssentialsX, WorldEdit, GriefPrevention, ...</li>
+          <li data-i18n-html="feature_backup">地图备份：每日自动备份</li>
+        </ul>
+      </div>
+    </div>
+
+    <main>
+      <div>
+        <section class="section">
+          <h3 data-i18n="about_title">关于服务器</h3>
+          <p class="muted" data-i18n-html="about_text">SERVER_NAME 致力于为玩家提供稳定、低延迟且社区友好的体验。无论你想探索、建造、还是参加活动，这里都有适合你的玩法。</p>
+
+          <h4 style="margin-top:12px" data-i18n="features_title">特色</h4>
+          <div class="features" style="margin-top:8px">
+            <div class="feature" data-i18n="feature_pvp">⚔️ 活动与 PVP 竞技</div>
+            <div class="feature" data-i18n="feature_protect">🏗 保护建造与权利管理</div>
+            <div class="feature" data-i18n="feature_multiworld">🌍 多世界：主世界 / 资源世界 / 迷你游戏</div>
+            <div class="feature" data-i18n="feature_backup">🛡 定期备份与反作弊</div>
+          </div>
+
+          <h4 style="margin-top:12px" data-i18n="rules_title">服务器规则</h4>
+          <ul class="rules">
+            <li data-i18n="rule_1">尊重其他玩家；禁止人身攻击与歧视。</li>
+            <li data-i18n="rule_2">禁止滥用漏洞或使用作弊客户端。</li>
+            <li data-i18n="rule_3">未经允许不得破坏他人建筑（除非位于公共区域）。</li>
+            <li data-i18n="rule_4">请遵守管理员指示，违规将被警告或封禁。</li>
+          </ul>
+
+          <h4 style="margin-top:12px" data-i18n="howto_title">如何加入</h4>
+          <ol style="margin-left:18px;color:var(--text)">
+            <li data-i18n-html="howto_step1">在 Minecraft 客户端中选择“多人游戏”。</li>
+            <li data-i18n-html="howto_step2">添加服务器：地址填写 <strong id="cfg-server-ip">SERVER_IP</strong>。</li>
+            <li data-i18n-html="howto_step3">如果需要白名单或版本，请加入 Discord 获取详细说明。</li>
+          </ol>
+
+          <h4 style="margin-top:12px" data-i18n="map_title">地图 / 实时视图</h4>
+          <p class="muted" data-i18n="map_text">如果你使用 Dynmap 或类似服务，可以在这里嵌入地图：</p>
+          <!-- 示例：替换下面 iframe src 为你的 Dynmap 地址或删除该 iframe -->
+          <!-- <iframe src="DYNMAP_URL" style="width:100%;height:360px;border:0;border-radius:8px;margin-top:8px"></iframe> -->
+        </section>
+
+        <section class="section" style="margin-top:12px">
+          <h3 data-i18n="commands_title">常用命令</h3>
+          <ul style="margin-left:18px;color:var(--text)">
+            <li data-i18n="cmd_spawn">/spawn — 回到出生点</li>
+            <li data-i18n="cmd_home">/home — 传送到家（需设置）</li>
+            <li data-i18n="cmd_warp">/warp — 传送到公共传送点</li>
+            <li data-i18n="cmd_msg">/msg — 私信玩家</li>
+          </ul>
+        </section>
+      </div>
+
+      <aside>
+        <div class="section">
+          <h4 data-i18n="staff_title">管理员 & 管理团队</h4>
+          <div class="staff" style="margin-top:8px">
+            <div class="row"><div class="avatar">A</div><div><strong id="admin-1">AdminName</strong><div class="muted" data-i18n="admin_role">创始人 / 管理</div></div></div>
+            <div class="row"><div class="avatar">M</div><div><strong id="mod-1">ModName</strong><div class="muted" data-i18n="mod_role">版主</div></div></div>
+          </div>
+        </div>
+
+        <div class="section" style="margin-top:12px">
+          <h4 data-i18n="join_title">加入我们</h4>
+          <p class="muted" data-i18n="join_text">加入 Discord 获取最新公告、活动和白名单申请。</p>
+          <button class="btn" style="width:100%;" id="discord-btn-2">打开 Discord</button>
+        </div>
+
+        <div class="section" style="margin-top:12px">
+          <h4 data-i18n="donate_title">捐助（可选）</h4>
+          <p class="muted" data-i18n="donate_text">支持服务器运行费用；捐助将用于主机、插件和发展活动（可选）。</p>
+          <a id="donate-link" href="DONATE_LINK" target="_blank" style="display:inline-block;margin-top:8px;padding:8px 10px;background:#1b6fb6;color:white;border-radius:8px;text-decoration:none" data-i18n="donate_button">捐助链接</a>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <span data-i18n-html="footer_text">© SERVER_NAME · IP: SERVER_IP · 版本: VERSION · </span><span id="year"></span>
+    </footer>
+  </div>
+
+  <script>
+    // 配置：请替换为你的真实信息
+    const CONFIG = {
+      serverName: 'SERVER_NAME',
+      serverIP: 'SERVER_IP',
+      version: 'VERSION',
+      discord: 'DISCORD_LINK',
+      donate: 'DONATE_LINK'
+    };
+
+    // 翻译文本
+    const TRANSLATIONS = {
+      'zh-CN': {
+        title: `${CONFIG.serverName} - Minecraft 服务器`,
+        server_name: CONFIG.serverName,
+        tag: `欢迎来到 ${CONFIG.serverName} —— 一个友好、有趣的 Minecraft 生存/创意 服务器`,
+        lang_label: '语言',
+        server_address: '服务器地址',
+        version_label: '游戏版本：',
+        online_label: '在线人数：',
+        quick_info: '快速信息',
+        feature_modes: '游戏模式：Survival / Creative / Skyblock（按需修改）',
+        feature_plugins: '插件/模组：EssentialsX, WorldEdit, GriefPrevention, ...',
+        feature_backup: '地图备份：每日自动备份',
+        about_title: '关于服务器',
+        about_text: `${CONFIG.serverName} 致力于为玩家提供稳定、低延迟且社区友好的体验。无论你想探索、建造、还是参加活动，这里都有适合你的玩法。`,
+        features_title: '特色',
+        feature_pvp: '⚔️ 活动与 PVP 竞技',
+        feature_protect: '🏗 保护建造与权利管理',
+        feature_multiworld: '🌍 多世界：主世界 / 资源世界 / 迷你游戏',
+        feature_backup: '🛡 定期备份与反作弊',
+        rules_title: '服务器规则',
+        rule_1: '尊重其他玩家；禁止人身攻击与歧视。',
+        rule_2: '禁止滥用漏洞或使用作弊客户端。',
+        rule_3: '未经允许不得破坏他人建筑（除非位于公共区域）。',
+        rule_4: '请遵守管理员指示，违规将被警告或封禁。',
+        howto_title: '如何加入',
+        howto_step1: '在 Minecraft 客户端中选择“多人游戏”。',
+        howto_step2: `添加服务器：地址填写 <strong>${CONFIG.serverIP}</strong>。`,
+        howto_step3: '如果需要白名单或版本，请加入 Discord 获取详细说明。',
+        map_title: '地图 / 实时视图',
+        map_text: '如果你使用 Dynmap 或类似服务，可以在这里嵌入地图：',
+        commands_title: '常用命令',
+        cmd_spawn: '/spawn — 回到出生点',
+        cmd_home: '/home — 传送到家（需设置）',
+        cmd_warp: '/warp — 传送到公共传送点',
+        cmd_msg: '/msg — 私信玩家',
+        staff_title: '管理员 & 管理团队',
+        admin_role: '创始人 / 管理',
+        mod_role: '版主',
+        join_title: '加入我们',
+        join_text: '加入 Discord 获取最新公告、活动和白名单申请。',
+        donate_title: '捐助（可选）',
+        donate_text: '支持服务器运行费用；捐助将用于主机、插件和发展活动（可选）。',
+        donate_button: '捐助链接',
+        footer_text: `© ${CONFIG.serverName} · IP: ${CONFIG.serverIP} · 版本: ${CONFIG.version} · `
+      },
+      'en': {
+        title: `${CONFIG.serverName} - Minecraft Server`,
+        server_name: CONFIG.serverName,
+        tag: `Welcome to ${CONFIG.serverName} — a friendly and fun Minecraft server (Survival / Creative).`,
+        lang_label: 'Lang',
+        server_address: 'Server Address',
+        version_label: 'Version:',
+        online_label: 'Players online:',
+        quick_info: 'Quick Info',
+        feature_modes: 'Game modes: Survival / Creative / Skyblock (customize as needed)',
+        feature_plugins: 'Plugins/Mods: EssentialsX, WorldEdit, GriefPrevention, ...',
+        feature_backup: 'Map backups: Daily automated backups',
+        about_title: 'About the Server',
+        about_text: `${CONFIG.serverName} aims to provide a stable, low-latency and community-friendly experience. Whether you want to explore, build or join events, there is something for you.`,
+        features_title: 'Features',
+        feature_pvp: '⚔️ Events & PvP Arenas',
+        feature_protect: '🏗 Build protection & claim management',
+        feature_multiworld: '🌍 Multiple worlds: Main / Resource / Minigames',
+        feature_backup: '🛡 Regular backups & anti-cheat',
+        rules_title: 'Rules',
+        rule_1: 'Respect others; no harassment or discrimination.',
+        rule_2: 'No exploiting bugs or using hacked clients.',
+        rule_3: 'Do not destroy others\' builds without permission (except public areas).',
+        rule_4: 'Follow admin instructions; violations may result in warnings/bans.',
+        howto_title: 'How to Join',
+        howto_step1: 'Open Multiplayer in the Minecraft client.',
+        howto_step2: `Add server with address <strong>${CONFIG.serverIP}</strong>.`,
+        howto_step3: 'Join our Discord if whitelist or specific version is required.',
+        map_title: 'Map / Live View',
+        map_text: 'If you use Dynmap or similar services, you can embed it here:',
+        commands_title: 'Common Commands',
+        cmd_spawn: '/spawn — Return to spawn',
+        cmd_home: '/home — Teleport home (if set)',
+        cmd_warp: '/warp — Teleport to public warps',
+        cmd_msg: '/msg — Private message a player',
+        staff_title: 'Admins & Team',
+        admin_role: 'Founder / Admin',
+        mod_role: 'Moderator',
+        join_title: 'Join Us',
+        join_text: 'Join our Discord for announcements, events and whitelist requests.',
+        donate_title: 'Donate (optional)',
+        donate_text: 'Support server costs; donations go to hosting, plugins and events (optional).',
+        donate_button: 'Donate',
+        footer_text: `© ${CONFIG.serverName} · IP: ${CONFIG.serverIP} · Version: ${CONFIG.version} · `
+      }
+    };
+
+    // 工具：根据 data-i18n 或 data-i18n-html 更新页面文本
+    function applyTranslations(lang){
+      const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+      document.documentElement.lang = lang;
+      // 标题元素
+      document.title = dict.title || document.title;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if(dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+
+      // 替换一些特殊字段
+      document.getElementById('server-ip').textContent = CONFIG.serverIP;
+      const verEl = document.getElementById('server-version'); if(verEl) verEl.textContent = CONFIG.version;
+      const donateLink = document.getElementById('donate-link'); if(donateLink) donateLink.href = CONFIG.donate;
+      const discordBtns = document.querySelectorAll('#discord-btn, #discord-btn-2');
+      discordBtns.forEach(b => b.onclick = openDiscord);
+      // footer year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    }
+
+    function openDiscord(){
+      const url = CONFIG.discord;
+      if(!url || url === 'DISCORD_LINK'){ alert('请在 HTML 中设置 DISCORD_LINK。'); return; }
+      window.open(url, '_blank');
+    }
+
+    // 复制地址
+    function copyIP(){
+      const ip = CONFIG.serverIP;
+      if(!ip) return;
+      navigator.clipboard?.writeText(ip).then(()=>{
+        alert((document.querySelector('[data-i18n="server_address"]')?.textContent || 'Address') + ': ' + ip + ' 已复制');
+      }, ()=> {
+        prompt('请手动复制服务器地址：', ip);
+      });
+    }
+
+    // 初始化语言选择
+    (function initLang(){
+      const select = document.getElementById('lang');
+      const saved = localStorage.getItem('site-lang');
+      const browser = (navigator.language || navigator.userLanguage || 'en').split('-')[0];
+      const defaultLang = saved || (browser === 'zh' ? 'zh-CN' : 'en');
+      select.value = defaultLang;
+      applyTranslations(defaultLang);
+      select.addEventListener('change', ()=>{
+        localStorage.setItem('site-lang', select.value);
+        applyTranslations(select.value);
+      });
+
+      // 绑定按钮
+      document.getElementById('copy-btn').addEventListener('click', copyIP);
+      document.querySelectorAll('#discord-btn, #discord-btn-2').forEach(b=> b.addEventListener('click', openDiscord));
+
+    })();
+
+    // 可选：通过服务器 API 获取在线人数（示例，需服务器端支持）
+    // fetch('/api/status').then(r=>r.json()).then(j=>{
+    //   document.getElementById('players').textContent = `${j.online}/${j.max}`;
+    // }).catch(()=>{ document.getElementById('players').textContent = '—'; });
+  </script>
+</body>
+</html>
