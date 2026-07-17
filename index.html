@@ -260,12 +260,12 @@
     };
 
     // 工具：根据 data-i18n 或 data-i18n-html 更新页面文本
-    function applyTranslations(lang){
-      const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+    async function applyTranslations(lang){
+      const raw = await loadTranslations(lang) || await loadTranslations('en');
+      let dict;
+      try{ dict = JSON.parse(raw); }catch(e){ console.error('解析语言文件失败', e); dict = {}; }
       document.documentElement.lang = lang;
-      // 标题元素
       document.title = dict.title || document.title;
-
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if(dict[key] !== undefined) el.textContent = dict[key];
