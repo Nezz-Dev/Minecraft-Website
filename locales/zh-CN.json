@@ -7,7 +7,7 @@
   "version_label": "游戏版本：",
   "online_label": "在线人数：",
   "quick_info": "快速信息",
-  "feature_modes": "游戏模式：Survival / Creative / Skyblock（按需修改）",
+  "feature_modes": "游戏模式：生存",
   "feature_plugins": "插件/模组：EssentialsX, WorldEdit, GriefPrevention, ...",
   "feature_backup": "地图备份：每日自动备份",
   "about_title": "关于服务器",
@@ -38,9 +38,9 @@
   "mod_role": "版主",
   "join_title": "加入我们",
   "join_text": "加入 Discord 获取最新公告、活动和白名单申请。",
-  "donate_title": "捐助（可选）",
+  "donate_title": "赞助我们",
   "donate_text": "支持服务器运行费用；捐助将用于主机、插件和发展活动（可选）。",
   "donate_button": "捐助链接",
   "footer_text": "© {{serverName}} · 版本: {{version}} · ",
-  "server_ip_placeholder": "加入 Discord 或通过群审核后获取服务器地址。"
+  "server_ip_placeholder": "通过群审核后获取服务器地址。"
 }
