@@ -1,0 +1,16 @@
+[
+  {
+    "id": "2026-07-01-update",
+    "date": "2026-07-01",
+    "pinned": true,
+    "title": {"zh-CN": "服务器重大更新 - 2026-07-01", "en": "Major Server Update - 2026-07-01"},
+    "content": {"zh-CN": "我们更新了核心插件并修复了一些已知问题。详情请加入 Discord 群组查看完整公告。", "en": "We updated core plugins and fixed several issues. Please join the Discord for full details."}
+  },
+  {
+    "id": "2026-06-15-event",
+    "date": "2026-06-15",
+    "pinned": false,
+    "title": {"zh-CN": "6 月大型活动回顾", "en": "June Event Recap"},
+    "content": {"zh-CN": "感谢参与本月活动，活动录像与奖励将在群内发放。", "en": "Thanks for joining this month's event. Recordings and rewards will be announced in the group."}
+  }
+]

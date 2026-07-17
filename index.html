@@ -150,6 +150,12 @@
       </aside>
     </main>
 
+    <section class="section" id="announcements" style="margin-top:18px">
+      <h3 data-i18n="announcements_title">服务器公告</h3>
+      <div id="ann-list" style="display:flex;flex-direction:column;gap:10px;margin-top:8px"></div>
+      <div style="margin-top:12px;text-align:right"><a href="announcements.html" id="view-all" data-i18n="view_all">查看历史公告</a></div>
+    </section>
+
     <footer>
       <span data-i18n-html="footer_text">© SERVER_NAME · IP: SERVER_IP · 版本: VERSION · </span><span id="year"></span>
     </footer>
@@ -471,6 +477,39 @@
     // fetch('/api/status').then(r=>r.json()).then(j=>{
     //   document.getElementById('players').textContent = `${j.online}/${j.max}`;
     // }).catch(()=>{ document.getElementById('players').textContent = '—'; });
+
+    // 加载并渲染最近公告（从 data/announcements.json）
+    async function loadAnnouncements(){
+      try{
+        const res = await fetch('./data/announcements.json');
+        if(!res.ok) throw new Error('no ann');
+        const arr = await res.json();
+        renderAnnouncements(arr);
+      }catch(e){
+        console.warn('无法加载公告', e);
+      }
+    }
+
+    function renderAnnouncements(items){
+      const lang = (document.documentElement.lang||'zh-CN').startsWith('zh')? 'zh-CN' : 'en';
+      const container = document.getElementById('ann-list');
+      if(!container) return;
+      // 按置顶和日期排序，展示最近 3 条
+      items.sort((a,b)=> (b.pinned?1:0) - (a.pinned?1:0) || (b.date.localeCompare(a.date)) );
+      const show = items.slice(0,3);
+      container.innerHTML = '';
+      for(const it of show){
+        const title = it.title[lang] || it.title['en'] || '';
+        const content = it.content[lang] || it.content['en'] || '';
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.marginBottom = '8px';
+        card.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${title}</strong><span class="muted">${it.date}${it.pinned? ' · 置顶':''}</span></div><div class="muted" style="margin-top:6px">${content}</div>`;
+        container.appendChild(card);
+      }
+    }
+
+    loadAnnouncements();
   </script>
 </body>
 </html>

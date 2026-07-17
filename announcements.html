@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Announcements - SERVER_NAME</title>
+  <style>
+    body{font-family:Inter,system-ui,Arial;background:#071028;color:#e6eef6;padding:20px}
+    .container{max-width:900px;margin:0 auto}
+    .item{background:#0b1320;padding:14px;border-radius:8px;margin-bottom:12px}
+    .meta{color:#9fb0c8;font-size:0.9rem}
+    .pinned{border-left:4px solid #2ecc71;padding-left:10px}
+    a.back{color:#9fb0c8;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="index.html">← 返回主页</a>
+    <h1>服务器公告</h1>
+    <div id="list"></div>
+  </div>
+
+  <script>
+    const CONFIG = { serverName: 'SERVER_NAME' };
+
+    async function loadAll(){
+      try{
+        const res = await fetch('./data/announcements.json');
+        const arr = await res.json();
+        render(arr);
+      }catch(e){
+        console.error(e);
+        document.getElementById('list').textContent = '无法加载公告';
+      }
+    }
+
+    function render(items){
+      const lang = (navigator.language||'en').startsWith('zh')? 'zh-CN' : 'en';
+      const container = document.getElementById('list');
+      items.sort((a,b)=> (b.pinned?1:0) - (a.pinned?1:0) || (b.date.localeCompare(a.date)) );
+      container.innerHTML = '';
+      for(const it of items){
+        const div = document.createElement('div');
+        div.className = 'item' + (it.pinned? ' pinned' : '');
+        const title = it.title[lang] || it.title['en'] || '';
+        const content = it.content[lang] || it.content['en'] || '';
+        div.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${title}</strong><span class="meta">${it.date}</span></div><div style="margin-top:8px">${content}</div>`;
+        container.appendChild(div);
+      }
+    }
+
+    loadAll();
+  </script>
+</body>
+</html>
