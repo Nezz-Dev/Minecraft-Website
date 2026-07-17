@@ -165,6 +165,100 @@
       donate: 'DONATE_LINK'
     };
 
+    // 内置回退翻译（当无法通过 fetch 加载 locales/*.json 时使用，避免 file:// 下失效）
+    const TRANSLATIONS_FALLBACK = {
+      'zh-CN': {
+        title: `${CONFIG.serverName} - Minecraft 服务器`,
+        server_name: CONFIG.serverName,
+        tag: `欢迎来到 ${CONFIG.serverName} —— 一个友好、有趣的 Minecraft 生存/创意 服务器`,
+        lang_label: '语言',
+        server_address: '服务器地址',
+        version_label: '游戏版本：',
+        online_label: '在线人数：',
+        quick_info: '快速信息',
+        feature_modes: '游戏模式：Survival / Creative / Skyblock（按需修改）',
+        feature_plugins: '插件/模组：EssentialsX, WorldEdit, GriefPrevention, ...',
+        feature_backup: '地图备份：每日自动备份',
+        about_title: '关于服务器',
+        about_text: `${CONFIG.serverName} 致力于为玩家提供稳定、低延迟且社区友好的体验。无论你想探索、建造、还是参加活动，这里都有适合你的玩法。`,
+        features_title: '特色',
+        feature_pvp: '⚔️ 活动与 PVP 竞技',
+        feature_protect: '🏗 保护建造与权利管理',
+        feature_multiworld: '🌍 多世界：主世界 / 资源世界 / 迷你游戏',
+        feature_backup: '🛡 定期备份与反作弊',
+        rules_title: '服务器规则',
+        rule_1: '尊重其他玩家；禁止人身攻击与歧视。',
+        rule_2: '禁止滥用漏洞或使用作弊客户端。',
+        rule_3: '未经允许不得破坏他人建筑（除非位于公共区域）。',
+        rule_4: '请遵守管理员指示，违规将被警告或封禁。',
+        howto_title: '如何加入',
+        howto_step1: '在 Minecraft 客户端中选择“多人游戏”。',
+        howto_step2: `添加服务器：地址填写 <strong>${CONFIG.serverIP}</strong>。`,
+        howto_step3: '如果需要白名单或版本，请加入 Discord 获取详细说明。',
+        map_title: '地图 / 实时视图',
+        map_text: '如果你使用 Dynmap 或类似服务，可以在这里嵌入地图：',
+        commands_title: '常用命令',
+        cmd_spawn: '/spawn — 回到出生点',
+        cmd_home: '/home — 传送到家（需设置）',
+        cmd_warp: '/warp — 传送到公共传送点',
+        cmd_msg: '/msg — 私信玩家',
+        staff_title: '管理员 & 管理团队',
+        admin_role: '创始人 / 管理',
+        mod_role: '版主',
+        join_title: '加入我们',
+        join_text: '加入 Discord 获取最新公告、活动和白名单申请。',
+        donate_title: '捐助（可选）',
+        donate_text: '支持服务器运行费用；捐助将用于主机、插件和发展活动（可选）。',
+        donate_button: '捐助链接',
+        footer_text: `© ${CONFIG.serverName} · IP: ${CONFIG.serverIP} · 版本: ${CONFIG.version} · `
+      },
+      'en': {
+        title: `${CONFIG.serverName} - Minecraft Server`,
+        server_name: CONFIG.serverName,
+        tag: `Welcome to ${CONFIG.serverName} — a friendly and fun Minecraft server (Survival / Creative).`,
+        lang_label: 'Lang',
+        server_address: 'Server Address',
+        version_label: 'Version:',
+        online_label: 'Players online:',
+        quick_info: 'Quick Info',
+        feature_modes: 'Game modes: Survival / Creative / Skyblock (customize as needed)',
+        feature_plugins: 'Plugins/Mods: EssentialsX, WorldEdit, GriefPrevention, ...',
+        feature_backup: 'Map backups: Daily automated backups',
+        about_title: 'About the Server',
+        about_text: `${CONFIG.serverName} aims to provide a stable, low-latency and community-friendly experience. Whether you want to explore, build or join events, there is something for you.`,
+        features_title: 'Features',
+        feature_pvp: '⚔️ Events & PvP Arenas',
+        feature_protect: '🏗 Build protection & claim management',
+        feature_multiworld: '🌍 Multiple worlds: Main / Resource / Minigames',
+        feature_backup: '🛡 Regular backups & anti-cheat',
+        rules_title: 'Rules',
+        rule_1: 'Respect others; no harassment or discrimination.',
+        rule_2: 'No exploiting bugs or using hacked clients.',
+        rule_3: "Do not destroy others' builds without permission (except public areas).",
+        rule_4: 'Follow admin instructions; violations may result in warnings/bans.',
+        howto_title: 'How to Join',
+        howto_step1: 'Open Multiplayer in the Minecraft client.',
+        howto_step2: `Add server with address <strong>${CONFIG.serverIP}</strong>.`,
+        howto_step3: 'Join our Discord if whitelist or specific version is required.',
+        map_title: 'Map / Live View',
+        map_text: 'If you use Dynmap or similar services, you can embed it here:',
+        commands_title: 'Common Commands',
+        cmd_spawn: '/spawn — Return to spawn',
+        cmd_home: '/home — Teleport home (if set)',
+        cmd_warp: '/warp — Teleport to public warps',
+        cmd_msg: '/msg — Private message a player',
+        staff_title: 'Admins & Team',
+        admin_role: 'Founder / Admin',
+        mod_role: 'Moderator',
+        join_title: 'Join Us',
+        join_text: 'Join our Discord for announcements, events and whitelist requests.',
+        donate_title: 'Donate (optional)',
+        donate_text: 'Support server costs; donations go to hosting, plugins and events (optional).',
+        donate_button: 'Donate',
+        footer_text: `© ${CONFIG.serverName} · IP: ${CONFIG.serverIP} · Version: ${CONFIG.version} · `
+      }
+    };
+
     // 翻译文本
     const TRANSLATIONS = {
       'zh-CN': {
@@ -261,9 +355,25 @@
 
     // 工具：根据 data-i18n 或 data-i18n-html 更新页面文本
     async function applyTranslations(lang){
-      const raw = await loadTranslations(lang) || await loadTranslations('en');
-      let dict;
-      try{ dict = JSON.parse(raw); }catch(e){ console.error('解析语言文件失败', e); dict = {}; }
+      // 如果是 file:// 协议，直接使用内置回退（避免 fetch 在本地被阻止）
+      if(location.protocol === 'file:'){
+        const dictF = TRANSLATIONS_FALLBACK[lang] || TRANSLATIONS_FALLBACK['en'] || {};
+        applyDict(dictF, lang);
+        return;
+      }
+
+      // 1) 尝试加载外部 JSON
+      const raw = await loadTranslations(lang);
+      let dict = null;
+      if(raw){
+        try{ dict = JSON.parse(raw); }catch(e){ console.warn('解析语言文件失败，使用内置回退', e); dict = null; }
+      }
+
+      // 2) 如果没有外部 JSON，使用内置回退对象
+      if(!dict){
+        dict = TRANSLATIONS_FALLBACK[lang] || TRANSLATIONS_FALLBACK['en'] || {};
+      }
+
       document.documentElement.lang = lang;
       document.title = dict.title || document.title;
       document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -282,6 +392,26 @@
       const discordBtns = document.querySelectorAll('#discord-btn, #discord-btn-2');
       discordBtns.forEach(b => b.onclick = openDiscord);
       // footer year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    }
+
+    // 将翻译应用到 DOM 的小函数，供 file:// 直接调用
+    function applyDict(dict, lang){
+      document.documentElement.lang = lang;
+      document.title = dict.title || document.title;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if(dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+      document.getElementById('server-ip').textContent = CONFIG.serverIP;
+      const verEl = document.getElementById('server-version'); if(verEl) verEl.textContent = CONFIG.version;
+      const donateLink = document.getElementById('donate-link'); if(donateLink) donateLink.href = CONFIG.donate;
+      const discordBtns = document.querySelectorAll('#discord-btn, #discord-btn-2');
+      discordBtns.forEach(b => b.onclick = openDiscord);
       document.getElementById('year').textContent = new Date().getFullYear();
     }
 
