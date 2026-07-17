@@ -7,10 +7,10 @@
     "content": {"zh-CN": "我们更新了核心插件并修复了一些已知问题。详情请加入 Discord 群组查看完整公告。", "en": "We updated core plugins and fixed several issues. Please join the Discord for full details."}
   },
   {
-    "id": "2026-06-15-event",
-    "date": "2026-06-15",
+    "id": "2026.07.17",
+    "date": "2026-07.17",
     "pinned": false,
-    "title": {"zh-CN": "6 月大型活动回顾", "en": "June Event Recap"},
-    "content": {"zh-CN": "感谢参与本月活动，活动录像与奖励将在群内发放。", "en": "Thanks for joining this month's event. Recordings and rewards will be announced in the group."}
+    "title": {"zh-CN": "网站正式投入运营了", "en": "Website Officially Launched"},
+    "content": {"zh-CN": "感谢你们对服务器的支持\n网站代码由AI编写可能出现错误\n加群反馈错误", "en": "Thanks for your support\nWe use AI to code the website\nAny bug please report in our server"}
   }
 ]
