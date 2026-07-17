@@ -159,7 +159,7 @@
     // 配置：请替换为你的真实信息
     const CONFIG = {
       serverName: 'SERVER_NAME',
-      serverIP: 'SERVER_IP',
+      serverIP: '',
       version: 'VERSION',
       discord: 'DISCORD_LINK',
       donate: 'DONATE_LINK'
@@ -390,7 +390,9 @@
       });
 
       // 替换一些特殊字段
-      document.getElementById('server-ip').textContent = CONFIG.serverIP;
+      // 如果翻译中提供占位文本则使用，否则使用配置的 IP（若有）
+      const ipEl = document.getElementById('server-ip');
+      if(ipEl) ipEl.textContent = dict.server_ip_placeholder || CONFIG.serverIP || '—';
       const verEl = document.getElementById('server-version'); if(verEl) verEl.textContent = CONFIG.version;
       const donateLink = document.getElementById('donate-link'); if(donateLink) donateLink.href = CONFIG.donate;
       const discordBtns = document.querySelectorAll('#discord-btn, #discord-btn-2');
@@ -412,7 +414,8 @@
         const key = el.getAttribute('data-i18n-html');
         if(dict[key] !== undefined) el.innerHTML = dict[key];
       });
-      document.getElementById('server-ip').textContent = CONFIG.serverIP;
+      const ipEl = document.getElementById('server-ip');
+      if(ipEl) ipEl.textContent = dict.server_ip_placeholder || CONFIG.serverIP || '—';
       const verEl = document.getElementById('server-version'); if(verEl) verEl.textContent = CONFIG.version;
       const donateLink = document.getElementById('donate-link'); if(donateLink) donateLink.href = CONFIG.donate;
       const discordBtns = document.querySelectorAll('#discord-btn, #discord-btn-2');

@@ -41,5 +41,6 @@
   "donate_title": "Donate (optional)",
   "donate_text": "Support server costs; donations go to hosting, plugins and events (optional).",
   "donate_button": "Donate",
-  "footer_text": "© {{serverName}} · IP: {{serverIP}} · Version: {{version}} · "
+  "footer_text": "© {{serverName}} · Version: {{version}} · ",
+  "server_ip_placeholder": "Server address is provided after Discord or group verification."
 }

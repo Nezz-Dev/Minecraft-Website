@@ -41,5 +41,6 @@
   "donate_title": "捐助（可选）",
   "donate_text": "支持服务器运行费用；捐助将用于主机、插件和发展活动（可选）。",
   "donate_button": "捐助链接",
-  "footer_text": "© {{serverName}} · IP: {{serverIP}} · 版本: {{version}} · "
+  "footer_text": "© {{serverName}} · 版本: {{version}} · ",
+  "server_ip_placeholder": "加入 Discord 或通过群审核后获取服务器地址。"
 }
